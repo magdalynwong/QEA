@@ -3,8 +3,8 @@ Feature: Adding and removing laptop from cart
     Given I am on the Best Buy home page
     When I close the ad modal
     And I search for "macbook pro"
-    And I check the 12" - 13.9" filter under Screen Size
-    Then a macbook pro with 13.3" 8GB Memory and 256GB SSD should appear
+    And I check the 12” - 13.9” filter under Screen Size
+    Then a macbook pro with 13.3” 8GB Memory and 256GB SSD should appear
 
 #Scenario: Adding Macbook Pro to cart
 #  Given the laptop is available

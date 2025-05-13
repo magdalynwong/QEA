@@ -1,5 +1,5 @@
 // ... (contents are the same as before) ...
-package com.bestbuy.stepDefinitions;
+package com.examples.stepDefinitions;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -12,10 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert; // Important: Use TestNG's Assert
 
 import java.time.Duration;
-import java.util.List;
 
 public class Scenario1 {
 
@@ -34,10 +32,11 @@ public class Scenario1 {
     @When("I close the ad modal")
     public void i_close_the_ad_modal() {
         try {
-            WebElement closeButton = this.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[aria-label='Close']")));
+            WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[aria-label='Close']")));
             closeButton.click();
             System.out.println("Ad modal closed.");
         } catch (Exception ignored) {
+            System.out.println("No ad modal to close.");
         }
     }
 
@@ -45,16 +44,15 @@ public class Scenario1 {
     public void i_search_for_macbook_pro(String search) {
         WebElement searchInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("gh-search-input")));
         searchInput.sendKeys(search);
-
         WebElement searchButton = driver.findElement(By.className("header-search-button"));
         searchButton.click();
-        //wait.until(ExpectedConditions.urlContains("searchpage"));
     }
 
     @When("I check the {double}” - {double}” filter under Screen Size")
-    public void i_check_the_filter_under_screen_size(Double inches, Double inches2) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void i_check_the_filter_under_screen_size(Double inches1, Double inches2) {
+        WebElement filterSizeElement = wait.until(ExpectedConditions.elementToBeClickable
+                (By.xpath("//*/div[1]/label/div/input")));
+        filterSizeElement.click();
     }
 
     @Then("a macbook pro with {double}” 8GB Memory and 256GB SSD should appear")
