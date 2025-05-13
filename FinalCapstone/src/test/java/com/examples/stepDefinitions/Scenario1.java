@@ -6,14 +6,14 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Scenario1 {
 
@@ -55,10 +55,32 @@ public class Scenario1 {
         filterSizeElement.click();
     }
 
-    @Then("a macbook pro with {double}” 8GB Memory and 256GB SSD should appear")
-    public void a_macbook_pro_with_8gb_memory_and_256gb_ssd_should_appear(Double double1) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @Then("a macbook pro with {double}” {int}GB Memory and {int}GB SSD should appear")
+    public void a_macbook_pro_with_8gb_memory_and_256gb_ssd_should_appear(Double screenSize, Integer memory, Integer ssd) {
+        WebElement productList = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("ul.plp-product-list")));
+        List<WebElement> productListings = productList.findElements(By.cssSelector("li.product-list-item"));
+        boolean productFound = false;
+
+        for (WebElement product : productListings) {
+            try {
+                WebElement titleElement = wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy
+                        (product, By.cssSelector("h2.product-title")));
+
+                // Relevant laptop details checklist
+                String title = titleElement.getText();
+                String screenSizeStr = Double.toString(screenSize);
+                String memoryStr = Integer.toString(memory);
+                String ssdStr = Integer.toString(ssd);
+
+                if (title.contains(screenSizeStr) && title.contains(memoryStr) && title.contains(ssdStr)) {
+                    productFound = true;
+                    break;
+                }
+            } catch (NoSuchElementException | TimeoutException e) {
+                // Skip listing since expected elements are not found
+            }
+        }
+        Assert.assertTrue(productFound);
     }
 
 
