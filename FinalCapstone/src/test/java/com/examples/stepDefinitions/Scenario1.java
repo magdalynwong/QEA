@@ -48,11 +48,17 @@ public class Scenario1 {
         searchButton.click();
     }
 
-    @When("I check the {double}” - {double}” filter under Screen Size")
+    @And("I check the {double}” - {double}” filter under Screen Size")
     public void i_check_the_filter_under_screen_size(Double inches1, Double inches2) {
         WebElement filterSizeElement = wait.until(ExpectedConditions.elementToBeClickable
                 (By.xpath("//*/div[1]/label/div/input")));
         filterSizeElement.click();
+    }
+
+    @And("I check the On Sale filter")
+    public void i_check_the_on_sale_filter() {
+        WebElement onSaleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'On Sale')]")));
+        onSaleButton.click();
     }
 
     @Then("a macbook pro with {double}” {int}GB Memory and {int}GB SSD should appear")
@@ -74,6 +80,7 @@ public class Scenario1 {
 
                 if (title.contains(screenSizeStr) && title.contains(memoryStr) && title.contains(ssdStr)) {
                     productFound = true;
+                    titleElement.click();
                     break;
                 }
             } catch (NoSuchElementException | TimeoutException e) {
@@ -82,6 +89,4 @@ public class Scenario1 {
         }
         Assert.assertTrue(productFound);
     }
-
-
 }
