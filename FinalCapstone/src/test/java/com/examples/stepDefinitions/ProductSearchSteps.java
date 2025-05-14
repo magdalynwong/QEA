@@ -28,20 +28,16 @@ public class ProductSearchSteps {
     private By productTitleLocator = By.cssSelector("h2.product-title");
     TestContextSetup setup;
     SearchPage searchPage;
+    private WebDriver driver;
 
     public ProductSearchSteps(TestContextSetup setup) {
         this.setup = setup;
         this.searchPage = new SearchPage(setup);
     }
-
-
+    
     @Given("I am on the Best Buy home page")
     public void i_am_on_the_best_buy_home_page() {
-        WebDriverManager.chromedriver().setup();
-        setup.driver = new ChromeDriver();
-        setup.driver.manage().window().maximize();
         setup.driver.get("https://www.bestbuy.com");
-        setup.wait = new WebDriverWait( setup.driver, Duration.ofSeconds(10));
     }
 
     @When("I close the ad modal")
@@ -49,10 +45,22 @@ public class ProductSearchSteps {
         try {
             WebElement closeButton = setup.wait.until(ExpectedConditions.elementToBeClickable(closeAdButtonLocator));
             closeButton.click();
-} catch (Exception ignored) {
-//            System.out.println("No ad modal to close.");
+        } catch (Exception ignored) {
+            // No ad modal to close.
         }
-                }
+    }
+
+    @Then("I should be on the search results page for “macbook pro”")
+    public void i_should_be_on_the_search_results_page_for_macbook_pro() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
+    @Given("I performed the search for {string}")
+    public void i_performed_the_search_for(String string) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
 
     @And("I search for {string}")
     public void i_search_for_macbook_pro(String search) {
