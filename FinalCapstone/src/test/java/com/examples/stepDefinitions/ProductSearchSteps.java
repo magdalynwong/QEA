@@ -50,18 +50,6 @@ public class ProductSearchSteps {
         }
     }
 
-    @Then("I should be on the search results page for “macbook pro”")
-    public void i_should_be_on_the_search_results_page_for_macbook_pro() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Given("I performed the search for {string}")
-    public void i_performed_the_search_for(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
     @And("I search for {string}")
     public void i_search_for_macbook_pro(String search) {
         WebElement searchInput = setup.wait.until(ExpectedConditions.visibilityOfElementLocated(searchInputLocator));
@@ -70,14 +58,24 @@ public class ProductSearchSteps {
         searchButton.click();
     }
 
-    @And("I check the {double}” - {double}” filter under Screen Size")
+    @Then("I should be on the search results page for {string}")
+    public void i_should_be_on_the_search_results_page_for(String expectedStr) {
+        Assert.assertTrue(setup.wait.until(ExpectedConditions.titleContains(expectedStr)));
+    }
+
+    @Given("I performed the search for {string}")
+    public void i_performed_the_search_for(String expectedVal) {
+        setup.driver.get("https://www.bestbuy.com/site/searchpage.jsp?st=macbook+pro&id=pcat17071");
+    }
+
+    @When("I check the {double}” - {double}” filter under Screen Size")
     public void i_check_the_filter_under_screen_size(Double inches1, Double inches2) {
         WebElement filterSizeElement = setup.wait.until(ExpectedConditions.elementToBeClickable(screenSizeFilterLocator));
         filterSizeElement.click();
     }
 
-    @And("I check the On Sale filter")
-    public void i_check_the_on_sale_filter() {
+    @And("I click the On Sale filter")
+    public void i_click_the_on_sale_filter() {
         WebElement onSaleButton = setup.wait.until(ExpectedConditions.elementToBeClickable(onSaleFilterLocator));
         onSaleButton.click();
     }
