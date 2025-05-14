@@ -49,11 +49,10 @@ public class ProductSearchSteps {
         try {
             WebElement closeButton = setup.wait.until(ExpectedConditions.elementToBeClickable(closeAdButtonLocator));
             closeButton.click();
-            System.out.println("Ad modal closed.");
-        } catch (Exception ignored) {
-            System.out.println("No ad modal to close.");
+} catch (Exception ignored) {
+//            System.out.println("No ad modal to close.");
         }
-    }
+                }
 
     @And("I search for {string}")
     public void i_search_for_macbook_pro(String search) {

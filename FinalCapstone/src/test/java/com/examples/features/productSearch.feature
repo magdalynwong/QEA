@@ -1,7 +1,7 @@
 Feature: Adding and removing laptop from cart
   Scenario: Searching for Macbook Pro
     Given I am on the Best Buy home page
-    When I close the ad modal
+#    When I close the ad modal
     And I search for "macbook pro"
     And I check the 12” - 13.9” filter under Screen Size
     And I check the On Sale filter
