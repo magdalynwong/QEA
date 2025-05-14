@@ -8,7 +8,7 @@ Feature: Adding and removing laptop from cart
     Then a macbook pro with 13.3” 8GB Memory and 256GB SSD should appear
 
 #Scenario: Adding Macbook Pro to cart
-#  Given the laptop is available
+#  Given the above actions
 #  When I click the "Add to Cart" button next to the laptop
 #  Then I should see the item in my cart with the total price
 #
