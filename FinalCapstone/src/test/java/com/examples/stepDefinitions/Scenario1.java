@@ -16,9 +16,16 @@ import java.time.Duration;
 import java.util.List;
 
 public class Scenario1 {
-
     private WebDriver driver;
     private WebDriverWait wait;
+    private By closeAdButtonLocator = By.cssSelector("button[aria-label='Close']");
+    private By searchInputLocator = By.id("gh-search-input");
+    private By searchButtonLocator = By.className("header-search-button");
+    private By screenSizeFilterLocator = By.xpath("//*/div[1]/label/div/input");
+    private By onSaleFilterLocator = By.xpath("//button[contains(text(), 'On Sale')]");
+    private By productListLocator = By.cssSelector("ul.plp-product-list");
+    private By productListItemLocator = By.cssSelector("li.product-list-item");
+    private By productTitleLocator = By.cssSelector("h2.product-title");
 
     @Given("I am on the Best Buy home page")
     public void i_am_on_the_best_buy_home_page() {
@@ -32,7 +39,7 @@ public class Scenario1 {
     @When("I close the ad modal")
     public void i_close_the_ad_modal() {
         try {
-            WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[aria-label='Close']")));
+            WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(closeAdButtonLocator));
             closeButton.click();
             System.out.println("Ad modal closed.");
         } catch (Exception ignored) {
@@ -42,35 +49,34 @@ public class Scenario1 {
 
     @And("I search for {string}")
     public void i_search_for_macbook_pro(String search) {
-        WebElement searchInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("gh-search-input")));
+        WebElement searchInput = wait.until(ExpectedConditions.visibilityOfElementLocated(searchInputLocator));
         searchInput.sendKeys(search);
-        WebElement searchButton = driver.findElement(By.className("header-search-button"));
+        WebElement searchButton = driver.findElement(searchButtonLocator);
         searchButton.click();
     }
 
     @And("I check the {double}” - {double}” filter under Screen Size")
     public void i_check_the_filter_under_screen_size(Double inches1, Double inches2) {
-        WebElement filterSizeElement = wait.until(ExpectedConditions.elementToBeClickable
-                (By.xpath("//*/div[1]/label/div/input")));
+        WebElement filterSizeElement = wait.until(ExpectedConditions.elementToBeClickable(screenSizeFilterLocator));
         filterSizeElement.click();
     }
 
     @And("I check the On Sale filter")
     public void i_check_the_on_sale_filter() {
-        WebElement onSaleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'On Sale')]")));
+        WebElement onSaleButton = wait.until(ExpectedConditions.elementToBeClickable(onSaleFilterLocator));
         onSaleButton.click();
     }
 
     @Then("a macbook pro with {double}” {int}GB Memory and {int}GB SSD should appear")
     public void a_macbook_pro_with_8gb_memory_and_256gb_ssd_should_appear(Double screenSize, Integer memory, Integer ssd) {
-        WebElement productList = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("ul.plp-product-list")));
-        List<WebElement> productListings = productList.findElements(By.cssSelector("li.product-list-item"));
+        WebElement productList = wait.until(ExpectedConditions.presenceOfElementLocated(productListLocator));
+        List<WebElement> productListings = productList.findElements(productListItemLocator);
         boolean productFound = false;
 
         for (WebElement product : productListings) {
             try {
                 WebElement titleElement = wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy
-                        (product, By.cssSelector("h2.product-title")));
+                        (product, productTitleLocator));
 
                 // Relevant laptop details checklist
                 String title = titleElement.getText();
