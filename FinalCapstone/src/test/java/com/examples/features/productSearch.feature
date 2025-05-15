@@ -1,4 +1,4 @@
-#Feature: Adding and removing laptop from cart
+Feature: Adding and removing laptop from cart
 #  Scenario: Searching for Macbook Pro
 #    Given I am on the Best Buy home page
 #    When I close the ad modal
