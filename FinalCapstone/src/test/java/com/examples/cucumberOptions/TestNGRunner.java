@@ -6,8 +6,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features="src/test/java", // <-- **Corrected path for features**
-        glue="com.examples.stepDefinitions",    // <-- This glue covers both steps and hooks
+        features="src/test/java",
+        glue="com.examples.stepDefinitions",
         monochrome = true,
         plugin = {"pretty", "html:target/cucumber-reports"}
 )

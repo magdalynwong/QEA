@@ -1,10 +1,14 @@
-Feature: Adding and removing laptop from cart
+#Feature: Adding and removing laptop from cart
 #  Scenario: Searching for Macbook Pro
 #    Given I am on the Best Buy home page
-##    When I close the ad modal
+#    When I close the ad modal
 #    And I search for "macbook pro"
-#    And I check the 12” - 13.9” filter under Screen Size
-#    And I check the On Sale filter
+#    Then I should be on the search results page for "macbook pro"
+#
+#  Scenario: Filtering laptop specs
+#    Given I performed the search for "macbook pro"
+#    When I check the 12” - 13.9” filter under Screen Size
+#    And I click the On Sale filter
 #    Then a macbook pro with 13.3” 8GB Memory and 256GB SSD should appear
 
 #Scenario: Adding Macbook Pro to cart
