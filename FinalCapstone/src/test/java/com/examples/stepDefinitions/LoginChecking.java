@@ -121,6 +121,7 @@ public class LoginChecking {
         emailInput.sendKeys(Keys.TAB);
     }
 
+    // test email and password validation separately
     @Then("it should report the email as {string}")
     public void it_should_report_the_email_as_valid(String expectedMessage) {
         boolean isPasswordValid = Boolean.parseBoolean(expectedMessage);
