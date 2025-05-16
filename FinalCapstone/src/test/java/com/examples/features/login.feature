@@ -9,6 +9,18 @@ Feature: Login and Password Validation
     Then I should be redirected to the login page
     And I can enter all of my account information
 
+  Scenario Outline: Password validation
+    Given I am on the login page
+    When I enter my "<Password>" into the password field
+    Then it should report the password as "<PasswordValid>"
+    And I enter the email address "<Email>"
+    Then it should report the email as "<EmailValid>"
+    Examples:
+      | Password  | PasswordValid | Email | EmailValid |
+      | qeaTeam1!  | true  | joe@gmail.com | true |
+      | ABCDEFGh!  | true  | a@b.cd        | true |
+      | 123456    | false | 123456         | false |
+
 #  Scenario Outline: Password validation
 #    When I enter my <Password>, it should check if <Valid>
 #    Examples:
