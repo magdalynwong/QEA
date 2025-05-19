@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="QEA(failed)">
+    <classes>
+      <class name="com.examples.testRunner.TestNGRunner">
+        <methods>
+          <include name="setUpClass"/>
+          <include name="runScenario" invocation-numbers="0"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.examples.testRunner.TestNGRunner -->
+    </classes>
+  </test> <!-- QEA(failed) -->
+</suite> <!-- Failed suite [Default Suite] -->
