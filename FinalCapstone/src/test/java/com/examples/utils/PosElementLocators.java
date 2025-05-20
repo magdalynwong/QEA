@@ -24,5 +24,11 @@ public class PosElementLocators {
     // Remove item from item relevant locators
     public By removeItemButton = By.cssSelector("button[title='Remove']");
     public By removedItemMsg = By.className("removed-item-info__message");
+
+    // Login Checking
+    public By accountButtonLocator = By.cssSelector("button[data-lid='hdr_signin']");
+    public By createAccountButton = By.cssSelector("a[data-testid='createAccountButton']");
+    public By sidePanelHeader = By.xpath("//h2[normalize-space()='Get more with a Best Buy account']");
+    public By firstNameInput = By.id("firstName");
 }
 
