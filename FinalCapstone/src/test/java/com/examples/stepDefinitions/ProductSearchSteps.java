@@ -14,12 +14,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class PostiveStepDefs {
+public class ProductSearchSteps {
     TestContextSetup setup;
     SearchPage searchPage;
     PosElementLocators locators;
 
-    public PostiveStepDefs(TestContextSetup setup) {
+    public ProductSearchSteps(TestContextSetup setup) {
         this.setup = setup;
         this.locators = new PosElementLocators();
         this.searchPage = new SearchPage(setup);
@@ -57,7 +57,7 @@ public class PostiveStepDefs {
 
     @Given("I performed the search for {string}")
     public void i_performed_the_search_for(String expectedVal) {
-        setup.driver.get("https://www.bestbuy.com/site/searchpage.jsp?st=macbook+pro&id=pcat17071");
+        setup.visit(locators.searchResultsPage);
     }
 
     @When("I check the {double}” - {double}” filter under Screen Size")
@@ -74,48 +74,9 @@ public class PostiveStepDefs {
 
     @Then("a macbook pro with {double}” {int}GB Memory and {int}GB SSD should appear")
     public void a_macbook_pro_with_8gb_memory_and_256gb_ssd_should_appear(Double screenSize, Integer memory, Integer ssd) {
-        WebElement productList = setup.wait.until(ExpectedConditions.presenceOfElementLocated(locators.productList));
+        WebElement productList = setup.waitForElementPresence(locators.productList);
         List<WebElement> productListings = productList.findElements(locators.productListItem);
         boolean productFound = searchPage.productMatchFound(productListings, screenSize, memory, ssd);
         Assert.assertTrue("Product with specified specs not found", productFound);
-    }
-
-    // Add to cart flow
-    @Given("I am on the product's listing page")
-    public void i_am_on_the_product_s_listing_page() {
-        setup.visit(locators.productListingSite);
-    }
-
-    @When("I click the “Add to Cart” button next to the laptop")
-    public void i_click_the_add_to_cart_button_next_to_the_laptop() {
-        WebElement addToCartButton = setup.waitForElementClickable(locators.addToCartButton);
-        addToCartButton.click();
-        WebElement orderSummary = setup.waitForElementVisibility(locators.orderSummary);
-        Assert.assertTrue("Order details not found", orderSummary.isDisplayed());
-    }
-
-    @Then("I should see the item in my cart with the total price")
-    public void i_should_see_the_item_in_my_cart_with_the_total_price() {
-        WebElement laptopImg = setup.waitForElementVisibility(locators.laptopImg);
-        WebElement totalPrice = setup.waitForElementVisibility(locators.orderSummaryPrice);
-        Assert.assertTrue(laptopImg.isDisplayed());
-        Assert.assertTrue(totalPrice.isDisplayed());
-    }
-
-    // Remove item from cart flow
-    @Given("I am on the above page")
-    public void i_am_on_the_above_page() {
-        setup.visitCartPage();
-    }
-    @When("I click the {string} link under the item number drop down")
-    public void i_click_the_link_under_the_item_number_drop_down(String string) {
-        WebElement removeItemButton = setup.waitForElementClickable(locators.removeItemButton);
-        removeItemButton.click();
-    }
-    @Then("I should receive the message “We’ve removed this item from your cart.”")
-    public void i_should_receive_the_message_we_ve_removed_this_item_from_your_cart() {
-        String removedItemMsg = setup.waitForElementVisibility(locators.removedItemMsg).getText();
-        String expected = "We’ve removed this item from your cart.";
-        Assert.assertEquals(expected, removedItemMsg);
     }
 }

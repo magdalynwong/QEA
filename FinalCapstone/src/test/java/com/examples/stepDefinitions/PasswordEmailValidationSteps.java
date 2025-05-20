@@ -17,27 +17,22 @@ public class PasswordEmailValidationSteps {
     TestContextSetup setup;
     SearchPage searchPage;
     NegElementLocators negLocators;
-    PosElementLocators posLocators;
 
     public PasswordEmailValidationSteps(TestContextSetup setup) {
         this.setup = setup;
         this.searchPage = new SearchPage(setup);
         this.negLocators = new NegElementLocators();
-        this.posLocators = new PosElementLocators();
     }
 
     @Given("I am on the login page")
     public void i_am_on_best_buy_login_page() {
-        setup.driver.get("https://www.bestbuy.com");
-        setup.wait.until(ExpectedConditions.elementToBeClickable(posLocators.accountButtonLocator)).click();
-        setup.wait.until(ExpectedConditions.elementToBeClickable(posLocators.createAccountButton)).click();
-        setup.wait.until(ExpectedConditions.urlContains("/identity/newAccount"));
+        setup.visitLoginPage();
         Assert.assertTrue(setup.driver.getCurrentUrl().contains("/identity/newAccount"));
     }
 
     @When("I enter my {string} into the password field")
     public void i_enter_password(String password) {
-        WebElement passwordInput = setup.wait.until(ExpectedConditions.elementToBeClickable(negLocators.passwordInputLocator));
+        WebElement passwordInput = setup.waitForElementClickable(negLocators.passwordInputLocator);
         passwordInput.clear();
         passwordInput.sendKeys(password);
         passwordInput.sendKeys(Keys.TAB);
@@ -48,7 +43,7 @@ public class PasswordEmailValidationSteps {
         boolean isPasswordValid = Boolean.parseBoolean(expectedMessage); // "true" = true, "false" = false
         boolean errorVisible;
         try {
-            WebElement err = setup.wait.until(ExpectedConditions.visibilityOfElementLocated(negLocators.passwordErrorMessage));
+            WebElement err = setup.waitForElementVisibility(negLocators.passwordErrorMessage);
             errorVisible = err.isDisplayed();
         } catch (TimeoutException ex) {
             errorVisible = false;
@@ -64,7 +59,7 @@ public class PasswordEmailValidationSteps {
 
     @And("I enter the email address {string}")
     public void i_enter_email_address(String email) {
-        WebElement emailInput = setup.wait.until(ExpectedConditions.elementToBeClickable(negLocators.emailInputLocator));
+        WebElement emailInput = setup.waitForElementClickable(negLocators.emailInputLocator);
         emailInput.clear();
         emailInput.sendKeys(email);
         emailInput.sendKeys(Keys.TAB);
@@ -77,7 +72,7 @@ public class PasswordEmailValidationSteps {
         boolean errorVisible;
 
         try {
-            WebElement err = setup.wait.until(ExpectedConditions.visibilityOfElementLocated(negLocators.emailErrorMessage));
+            WebElement err = setup.waitForElementVisibility(negLocators.emailErrorMessage);
             errorVisible = err.isDisplayed();
         } catch (TimeoutException ex) {
             errorVisible = false;

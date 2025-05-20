@@ -7,7 +7,8 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(features="src/test/java",
    glue="com.examples.stepDefinitions",
    monochrome = true,
-   plugin = {"pretty", "html:target/cucumber-reports"}
+   plugin = {"pretty", "html:target/cucumber-reports"},
+   tags = "@Positive or @Negative"
 )
 
 public class TestNGRunner extends AbstractTestNGCucumberTests {

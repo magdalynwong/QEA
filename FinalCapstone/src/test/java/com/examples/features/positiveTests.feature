@@ -1,3 +1,4 @@
+@Positive
 Feature: Adding and removing laptop from cart
 
   Scenario: Searching for Macbook Pro

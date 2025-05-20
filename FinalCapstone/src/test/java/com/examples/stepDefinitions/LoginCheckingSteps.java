@@ -2,7 +2,6 @@
 package com.examples.stepDefinitions;
 
 import com.examples.pages.SearchPage;
-import com.examples.utils.NegElementLocators;
 import com.examples.utils.PosElementLocators;
 import com.examples.utils.TestContextSetup;
 import io.cucumber.java.en.And;
@@ -14,37 +13,35 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
-public class LoginChecking {
+public class LoginCheckingSteps {
 
     TestContextSetup setup;
-    SearchPage searchPage;
     PosElementLocators locators;
 
-    public LoginChecking(TestContextSetup setup) {
+    public LoginCheckingSteps(TestContextSetup setup) {
         this.setup = setup;
-        this.searchPage = new SearchPage(setup);
         this.locators = new PosElementLocators();
     }
 
     @Given("I am on the home page bestbuy.com")
     public void i_am_on_best_buy_home_page() {
-        setup.driver.get("https://www.bestbuy.com");
+        setup.visit("https://www.bestbuy.com");
     }
 
     @When("I click on the Account button")
     public void i_click_account_button() {
-        WebElement accountButton = setup.wait.until(ExpectedConditions.elementToBeClickable(locators.accountButtonLocator));
+        WebElement accountButton = setup.waitForElementClickable(locators.accountButtonLocator);
         accountButton.click();
     }
 
     @Then("I should see a side panel with account options")
     public void i_see_side_panel() {
-        Assert.assertTrue(setup.wait.until(ExpectedConditions.visibilityOfElementLocated(locators.sidePanelHeader)).isDisplayed());
+        Assert.assertTrue(setup.waitForElementVisibility(locators.sidePanelHeader).isDisplayed());
     }
 
     @When("I click on the Create Account button")
     public void i_click_create_account_button() {
-        WebElement createBtn = setup.wait.until(ExpectedConditions.elementToBeClickable(locators.createAccountButton));
+        WebElement createBtn = setup.waitForElementClickable(locators.createAccountButton);
         createBtn.click();
     }
 
@@ -57,7 +54,7 @@ public class LoginChecking {
 
     @And("I can enter all of my account information")
     public void i_can_enter_all_of_my_account_information() {
-        setup.wait.until(ExpectedConditions.visibilityOfElementLocated(locators.firstNameInput));
+        setup.waitForElementVisibility(locators.firstNameInput);
     }
 
 }

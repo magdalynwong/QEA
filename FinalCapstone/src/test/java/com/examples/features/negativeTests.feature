@@ -1,4 +1,4 @@
-
+@Negative
 Feature: Login and Password Validation
 
   Scenario Outline: Password and Email validation
